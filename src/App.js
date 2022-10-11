@@ -1,9 +1,11 @@
 import { Fragment } from "react";
 import { Link, Route, Routes } from "react-router-dom";
 
+import { Book } from "./pages/Book";
 import { BookList } from "./pages/BookList";
 import { Home } from "./pages/Home";
 import { User } from "./pages/User";
+import { NotFound } from "./pages/NotFound";
 
 function App() {
   return (
@@ -24,7 +26,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/books" element={<BookList />}></Route>
+        <Route path="/books/:id" element={<Book />}></Route>
         <Route path="/User" element={<User />}></Route>
+        <Route path="/*" element={<NotFound />}></Route>
       </Routes>
     </Fragment>
   );
