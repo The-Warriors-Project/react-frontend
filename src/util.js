@@ -7,5 +7,14 @@ export const isEmptyString = (str) => {
 };
 
 export const isValidUsername = (username) => {
-  return !isEmptyString(username); // todo: This should be updated
+  return /^[a-zA-Z0-9]+$/.test(username);
+};
+
+export const isValidFirstLastName = (name) => {
+  // regex from https://stackoverflow.com/questions/2385701/regular-expression-for-first-and-last-name
+  return /^[a-z ,.'-]+$/i.test(name);
+};
+
+export const isValidPassword = (password) => {
+  return !isEmptyString(password);
 };

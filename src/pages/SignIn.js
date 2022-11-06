@@ -10,11 +10,12 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
 
-import { isValidUsername, isEmptyString } from "../util";
+import { isValidUsername, isValidPassword } from "../util";
 import { useUser } from "../context/UserContext";
 
 export default function SignIn() {
   const [formValues, setFormValues] = useState({ username: "", password: "" });
+  const [formErrors, setFormErrors] = useState({ username: "", password: "" });
   const { setUser } = useUser();
   const navigate = useNavigate();
 
@@ -23,11 +24,31 @@ export default function SignIn() {
     setFormValues({ ...formValues, [name]: value });
   };
 
+  const validate = () => {
+    setFormErrors((prevFormErrors) => ({
+      ...prevFormErrors,
+      username: isValidUsername(formValues.username) ? "" : "Invalid username",
+    }));
+
+    setFormErrors((prevFormErrors) => ({
+      ...prevFormErrors,
+      password: isValidPassword(formValues.password) ? "" : "Invalid password",
+    }));
+
+    return (
+      isValidUsername(formValues.username) &&
+      isValidPassword(formValues.password)
+    );
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formValues);
-    setUser({ username: formValues.username });
-    navigate("/");
+
+    if (validate()) {
+      console.log(formValues);
+      setUser({ username: formValues.username });
+      navigate("/");
+    }
   };
 
   return (
@@ -56,9 +77,10 @@ export default function SignIn() {
                 label="Username"
                 name="username"
                 autoComplete="username"
-                error={!isValidUsername(formValues.username)}
+                error={!!formErrors.username}
                 value={formValues.username}
                 onChange={handleChange}
+                helperText={formErrors.username}
               />
             </Grid>
             <Grid item xs={12}>
@@ -70,9 +92,10 @@ export default function SignIn() {
                 type="password"
                 id="password"
                 autoComplete="new-password"
-                value={formValues.pasword}
+                value={formValues.password}
                 onChange={handleChange}
-                error={isEmptyString(formValues.password)}
+                error={!!formErrors.password}
+                helperText={formErrors.password}
               />
             </Grid>
           </Grid>

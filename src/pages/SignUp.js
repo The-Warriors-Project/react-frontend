@@ -9,10 +9,24 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
-import { isValidEmail, isEmptyString, isValidUsername } from "../util";
+import {
+  isValidEmail,
+  isEmptyString,
+  isValidUsername,
+  isValidFirstLastName,
+  isValidPassword,
+} from "../util";
 
 export default function SignUp() {
   const [formValues, setFormValues] = useState({
+    username: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+
+  const [formErrors, setFormErrors] = useState({
     username: "",
     firstName: "",
     lastName: "",
@@ -25,9 +39,51 @@ export default function SignUp() {
     setFormValues({ ...formValues, [name]: value });
   };
 
+  const validate = () => {
+    setFormErrors((prevFormErrors) => ({
+      ...prevFormErrors,
+      username: isValidUsername(formValues.username) ? "" : "Invalid username",
+    }));
+
+    setFormErrors((prevFormErrors) => ({
+      ...prevFormErrors,
+      firstName: isValidFirstLastName(formValues.firstName)
+        ? ""
+        : "Invalid first name",
+    }));
+
+    setFormErrors((prevFormErrors) => ({
+      ...prevFormErrors,
+      lastName: isValidFirstLastName(formValues.lastName)
+        ? ""
+        : "Invalid last name",
+    }));
+
+    setFormErrors((prevFormErrors) => ({
+      ...prevFormErrors,
+      email: isValidEmail(formValues.email) ? "" : "Invalid email",
+    }));
+
+    setFormErrors((prevFormErrors) => ({
+      ...prevFormErrors,
+      password: isValidPassword(formValues.password) ? "" : "Invalid password",
+    }));
+
+    return (
+      isValidUsername(formValues.username) &&
+      isValidFirstLastName(formValues.firstName) &&
+      isValidFirstLastName(formValues.lastName) &&
+      isValidEmail(formValues.email) &&
+      isValidPassword(formValues.password)
+    );
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formValues);
+
+    if (validate()) {
+      console.log("formValues:", formValues);
+    }
   };
 
   return (
@@ -58,7 +114,8 @@ export default function SignUp() {
                 autoComplete="username"
                 onChange={handleChange}
                 value={formValues.username}
-                error={!isValidUsername(formValues.username)}
+                error={!!formErrors.username}
+                helperText={formErrors.username}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -72,7 +129,8 @@ export default function SignUp() {
                 autoFocus
                 onChange={handleChange}
                 value={formValues.firstName}
-                error={isEmptyString(formValues.firstName)}
+                error={!!formErrors.firstName}
+                helperText={formErrors.firstName}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -85,7 +143,8 @@ export default function SignUp() {
                 autoComplete="family-name"
                 onChange={handleChange}
                 value={formValues.lastName}
-                error={isEmptyString(formValues.lastName)}
+                error={!!formErrors.lastName}
+                helperText={formErrors.lastName}
               />
             </Grid>
             <Grid item xs={12}>
@@ -98,7 +157,8 @@ export default function SignUp() {
                 autoComplete="email"
                 onChange={handleChange}
                 value={formValues.email}
-                error={!isValidEmail(formValues.email)}
+                error={!!formErrors.email}
+                helperText={formErrors.email}
               />
             </Grid>
             <Grid item xs={12}>
@@ -112,7 +172,8 @@ export default function SignUp() {
                 autoComplete="new-password"
                 onChange={handleChange}
                 value={formValues.password}
-                error={isEmptyString(formValues.password)}
+                error={!!formErrors.password}
+                helperText={formErrors.password}
               />
             </Grid>
           </Grid>
