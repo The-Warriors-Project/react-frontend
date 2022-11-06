@@ -10,11 +10,11 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
 
-import { isValidEmail, isEmptyString } from "../util";
+import { isValidUsername, isEmptyString } from "../util";
 import { useUser } from "../context/UserContext";
 
 export default function SignIn() {
-  const [formValues, setFormValues] = useState({ email: "", password: "" });
+  const [formValues, setFormValues] = useState({ username: "", password: "" });
   const { setUser } = useUser();
   const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ export default function SignIn() {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(formValues);
-    setUser({ email: formValues.email });
+    setUser({ username: formValues.username });
     navigate("/");
   };
 
@@ -52,12 +52,12 @@ export default function SignIn() {
               <TextField
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                error={!isValidEmail(formValues.email)}
-                value={formValues.email}
+                id="username"
+                label="Username"
+                name="username"
+                autoComplete="username"
+                error={!isValidUsername(formValues.username)}
+                value={formValues.username}
                 onChange={handleChange}
               />
             </Grid>
