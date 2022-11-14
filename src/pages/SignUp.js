@@ -126,7 +126,6 @@ export default function SignUp() {
                 fullWidth
                 id="firstName"
                 label="First Name"
-                autoFocus
                 onChange={handleChange}
                 value={formValues.firstName}
                 error={!!formErrors.firstName}
