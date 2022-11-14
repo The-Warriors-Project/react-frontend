@@ -34,6 +34,7 @@ function NavBar() {
   const submitSearchBar = (e) => {
     e.preventDefault();
     console.log(searchValue);
+    setSearchValue("");
   };
 
   const logout = () => {
