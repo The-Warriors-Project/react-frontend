@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { CssBaseline, Container } from "@mui/material";
 
 import { Book } from "./pages/Book";
@@ -7,15 +7,25 @@ import { Home } from "./pages/Home";
 import { User } from "./pages/User";
 import { NotFound } from "./pages/NotFound";
 import Navbar from "./components/Navbar";
+import BackgroundVideo from "./components/BackgroundVideo";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 
 import { UserProvider } from "./context/UserContext";
+import backgroundVideo from "./assets/background-video1.mp4";
 
 const styles = {
   container: {
     my: 4,
     backgroundColor: "background.paper",
+  },
+  video: {
+    width: "100%",
+    height: "100vh",
+    position: "absolute",
+    top: 0,
+    zIndex: -1,
+    objectFit: "cover",
   },
 };
 
@@ -24,6 +34,7 @@ function App() {
     <>
       <CssBaseline />
       <UserProvider>
+        <BackgroundVideo />
         <Navbar />
         <Container component="main" sx={styles.container}>
           <Routes>
