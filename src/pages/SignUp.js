@@ -8,14 +8,22 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import axios from "axios";
 
 import {
   isValidEmail,
-  isEmptyString,
   isValidUsername,
   isValidFirstLastName,
   isValidPassword,
 } from "../util";
+
+async function getData() {
+  const res = await axios.get(
+    "https://8yffpe0pcl.execute-api.us-east-1.amazonaws.com/dev/api/v1/users/health"
+  );
+
+  return res.data;
+}
 
 export default function SignUp() {
   const [formValues, setFormValues] = useState({
@@ -78,11 +86,12 @@ export default function SignUp() {
     );
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (validate()) {
       console.log("formValues:", formValues);
+      console.log("getData()", await getData());
     }
   };
 
