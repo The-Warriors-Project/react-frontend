@@ -12,7 +12,7 @@ import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 
 import { UserProvider } from "./context/UserContext";
-import backgroundVideo from "./assets/background-video1.mp4";
+import SearchedResults from "./pages/SearchedResult";
 
 const styles = {
   container: {
@@ -44,6 +44,7 @@ function App() {
             <Route path="/user" element={<User />}></Route>
             <Route path="/signup" element={<SignUp />}></Route>
             <Route path="/login" element={<SignIn />}></Route>
+            <Route path="/search" element={<SearchedResults />}></Route>
             <Route path="/*" element={<NotFound />}></Route>
           </Routes>
         </Container>
