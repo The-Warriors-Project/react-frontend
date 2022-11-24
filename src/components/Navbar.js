@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { AppBar, Button, Toolbar, Typography } from "@mui/material";
 import BookIcon from "@mui/icons-material/Book";
 import { Stack } from "@mui/system";
@@ -7,25 +7,24 @@ import { useUser } from "../context/UserContext";
 import SearchBar from "./SearchBar";
 
 const styles = {
+  iconLink: {
+    textDecoration: "none",
+    color: "unset",
+  },
   icon: {
     marginRight: 2,
   },
-  toolbar: {
-    textDecoration: "none",
-    color: "unset",
-  },
-  button: {
-    textDecoration: "none",
-    color: "unset",
-  },
   typography: {
     flexGrow: 1,
+    textDecoration: "none",
+    color: "unset",
   },
 };
 
 function NavBar() {
   const { user, setUser } = useUser();
   const [searchValue, setSearchValue] = useState("");
+  const navigate = useNavigate();
 
   const handleSearchBar = (e) => {
     setSearchValue(e.target.value);
@@ -33,8 +32,10 @@ function NavBar() {
 
   const submitSearchBar = (e) => {
     e.preventDefault();
-    console.log(searchValue);
-    setSearchValue("");
+    navigate({
+      pathname: "/search",
+      search: `?book_name=${searchValue}`,
+    });
   };
 
   const logout = () => {
@@ -43,9 +44,16 @@ function NavBar() {
 
   return (
     <AppBar position="relative">
-      <Toolbar component={RouterLink} to="/" sx={styles.toolbar}>
-        <BookIcon sx={styles.icon} />
-        <Typography variant="h6" sx={styles.typography}>
+      <Toolbar>
+        <RouterLink to={"/"} style={styles.iconLink}>
+          <BookIcon sx={styles.icon} />
+        </RouterLink>
+        <Typography
+          variant="h6"
+          sx={styles.typography}
+          component={RouterLink}
+          to="/"
+        >
           Reader Hub
         </Typography>
         <Stack direction="row" spacing={2}>

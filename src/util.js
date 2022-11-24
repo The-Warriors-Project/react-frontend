@@ -18,3 +18,7 @@ export const isValidFirstLastName = (name) => {
 export const isValidPassword = (password) => {
   return !isEmptyString(password);
 };
+
+export const truncate = (str, n) => {
+  return str.length > n ? str.substr(0, n - 1) + "..." : str;
+};
