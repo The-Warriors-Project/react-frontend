@@ -16,18 +16,20 @@ export default function SearchedResults() {
         setSearchedBooks([books]);
       })
       .catch((e) => {
-        console.error(e);
+        console.log(e);
       });
   }, [book_name]);
 
   return (
     <>
-      {searchedBooks && (
+      {searchedBooks ? (
         <Cards
           subject="Searched Result"
           captions={captions}
           cardsData={searchedBooks}
         ></Cards>
+      ) : (
+        <h1>No Search Result Found</h1>
       )}
     </>
   );

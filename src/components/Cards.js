@@ -20,13 +20,13 @@ const styles = {
 };
 
 function MediaCard(props) {
-  const { title, description, imageUrl, idx } = props;
+  const { name, description, imageUrl, idx } = props;
   return (
     <Card sx={styles.card} key={idx}>
       <CardMedia component="img" height="140" image={imageUrl} />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          {title}
+          {name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {truncate(description, 100)}
