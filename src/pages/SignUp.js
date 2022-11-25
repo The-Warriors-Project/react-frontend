@@ -98,7 +98,6 @@ export default function SignUp() {
     event.preventDefault();
 
     if (validate()) {
-      console.log("formValues:", formValues);
       await handleSignupMessage();
     }
   };

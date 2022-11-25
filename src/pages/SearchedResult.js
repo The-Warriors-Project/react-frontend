@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { getBooksByName } from "../api/BooksAPI";
 
+import { getBooksByName } from "../api/BooksAPI";
 import Cards from "../components/Cards";
 
 export default function SearchedResults() {

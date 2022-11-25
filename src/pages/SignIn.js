@@ -12,11 +12,15 @@ import { useNavigate } from "react-router-dom";
 
 import { isValidUsername, isValidPassword } from "../util";
 import { useUser } from "../context/UserContext";
+import { login } from "../api/UsersAPI";
+import { useSnackbar } from "../context/SnackbarContext";
 
 export default function SignIn() {
+  const { openSuccessMessage, openErrorMessage } = useSnackbar();
+
   const [formValues, setFormValues] = useState({ username: "", password: "" });
   const [formErrors, setFormErrors] = useState({ username: "", password: "" });
-  const { setUser } = useUser();
+  const { user, setUser } = useUser();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -41,13 +45,21 @@ export default function SignIn() {
     );
   };
 
-  const handleSubmit = (event) => {
+  const handleSuccessLogin = (userInfo) => {
+    setUser({ username: userInfo.sub });
+    navigate("/");
+  };
+
+  const handleFailedLogin = (errorMessage) => {
+    openErrorMessage(errorMessage);
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (validate()) {
       console.log(formValues);
-      setUser({ username: formValues.username });
-      navigate("/");
+      await login(formValues, handleSuccessLogin, handleFailedLogin);
     }
   };
 
