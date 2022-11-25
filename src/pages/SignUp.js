@@ -16,6 +16,8 @@ import {
   isValidFirstLastName,
   isValidPassword,
 } from "../util";
+import { useSnackbar } from "../context/SnackbarContext";
+import { signup } from "../api/UsersAPI";
 
 async function getData() {
   const res = await axios.get(
@@ -26,6 +28,8 @@ async function getData() {
 }
 
 export default function SignUp() {
+  const { openSuccessMessage, openErrorMessage } = useSnackbar();
+
   const [formValues, setFormValues] = useState({
     username: "",
     firstName: "",
@@ -86,12 +90,16 @@ export default function SignUp() {
     );
   };
 
+  const handleSignupMessage = async () => {
+    await signup(formValues, openSuccessMessage, openErrorMessage);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (validate()) {
       console.log("formValues:", formValues);
-      console.log("getData()", await getData());
+      await handleSignupMessage();
     }
   };
 
