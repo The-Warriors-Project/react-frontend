@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { getBooksByName } from "../apis/books";
+import { getBooksByName } from "../api/BooksAPI";
 
 import Cards from "../components/Cards";
 
