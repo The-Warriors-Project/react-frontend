@@ -6,6 +6,7 @@ import {
   Typography,
   CardActions,
   Button,
+  Box,
 } from "@mui/material";
 import { Container } from "@mui/system";
 import { truncate } from "../util";
@@ -16,8 +17,30 @@ const styles = {
   },
   card: {
     maxWidth: 345,
-    // width: "15rem",
-    height: "22rem",
+    height: "23rem",
+  },
+  cardContent: {
+    height: "45%",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  },
+  cardContent_title: {
+    height: "48%",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  },
+  cardContent_content: {
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  },
+  cardActions: {
+    height: "15%",
+  },
+  cardTitle: {
+    height: "50%",
+  },
+  cardMedia: {
+    height: "40%",
   },
 };
 
@@ -25,16 +48,26 @@ function MediaCard(props) {
   const { name, description, imageUrl, idx } = props;
   return (
     <Card sx={styles.card} key={idx}>
-      <CardMedia component="img" height="140" image={imageUrl} />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+      <CardMedia component="img" sx={styles.cardMedia} image={imageUrl} />
+      <CardContent sx={styles.cardContent}>
+        <Typography
+          gutterBottom
+          variant="h6"
+          component="div"
+          sx={styles.cardContent_title}
+        >
           {name}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {truncate(description, 100)}
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          component="div"
+          sx={styles.cardContent_content}
+        >
+          {truncate(description, 130)}
         </Typography>
       </CardContent>
-      <CardActions>
+      <CardActions sx={styles.cardActions}>
         <Button size="small">Learn More and Review!</Button>
       </CardActions>
     </Card>
