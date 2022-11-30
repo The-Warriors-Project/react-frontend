@@ -13,12 +13,16 @@ export default function SearchedResults() {
   useEffect(() => {
     getBooksByName(book_name)
       .then((books) => {
-        setSearchedBooks([books]);
+        setSearchedBooks(books);
       })
       .catch((e) => {
         console.log(e);
       });
   }, [book_name]);
+
+  console.log(searchedBooks);
+  // console.log(searchedBooks);
+  // return <></>;
 
   return (
     <>

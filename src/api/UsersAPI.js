@@ -2,7 +2,7 @@ import axios from "axios";
 import qs from "qs";
 import jwtDecode from "jwt-decode";
 
-const [OK_200, UNAUTHORIZED_401] = [200, 401];
+const [OK_200] = [200, 401];
 
 const formatUserInfoForSignup = (newUserInfo) => {
   const formatted = {

@@ -33,7 +33,7 @@ const styles = {
 };
 
 export default function BackgroundVideo() {
-  if (useLocation().pathname != "/") {
+  if (useLocation().pathname !== "/") {
     return <></>;
   }
 

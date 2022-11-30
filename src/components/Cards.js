@@ -16,6 +16,8 @@ const styles = {
   },
   card: {
     maxWidth: 345,
+    // width: "15rem",
+    height: "22rem",
   },
 };
 
@@ -33,8 +35,7 @@ function MediaCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
+        <Button size="small">Learn More and Review!</Button>
       </CardActions>
     </Card>
   );
@@ -63,11 +64,11 @@ function Cards(props) {
           );
         })}
       <Grid container spacing={4}>
-        {cardsData.map(({ name, description, picture }, idx) => (
+        {cardsData.map(({ title, description, picture }, idx) => (
           <Grid item xs={12} sm={6} md={4} key={idx}>
             <MediaCard
-              name={name}
-              description={description}
+              name={title}
+              description={description ? description : ""}
               imageUrl={picture}
               key={idx}
             ></MediaCard>

@@ -16,11 +16,11 @@ import { login } from "../api/UsersAPI";
 import { useSnackbar } from "../context/SnackbarContext";
 
 export default function SignIn() {
-  const { openSuccessMessage, openErrorMessage } = useSnackbar();
+  const { openErrorMessage } = useSnackbar();
 
   const [formValues, setFormValues] = useState({ username: "", password: "" });
   const [formErrors, setFormErrors] = useState({ username: "", password: "" });
-  const { user, setUser } = useUser();
+  const { setUser } = useUser();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
