@@ -22,6 +22,7 @@ export default function BookContent() {
         <img
           src="https://m.media-amazon.com/images/I/91asIC1fRwL.jpg"
           style={styles.image}
+          alt="book cover"
         ></img>
       </Grid>
       <Grid item xs={8} style={{ height: "100%" }}>
