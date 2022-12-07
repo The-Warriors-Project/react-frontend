@@ -43,7 +43,7 @@ function App() {
           <Container component="main" sx={styles.container}>
             <Routes>
               <Route path="/" element={<Home />}></Route>
-              <Route path="/books" element={<BookList />}></Route>
+              {/* <Route path="/books" element={<BookList />}></Route> */}
               <Route path="/books/:id" element={<Book />}></Route>
               <Route path="/user" element={<User />}></Route>
               <Route path="/signup" element={<SignUp />}></Route>
