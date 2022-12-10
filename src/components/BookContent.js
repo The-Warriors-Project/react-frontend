@@ -30,12 +30,8 @@ const BookImage = (props) => {
   return <img src={imageUrl} style={styles.image} alt="book cover"></img>;
 };
 
-const authorsToText = (authors) => {
-  return authors && authors.length ? authors.join(", ") : "";
-};
-
 const BookSubstance = (props) => {
-  const { title, authors, rating, description } = props;
+  const { title, author, rating, description } = props;
   const { user } = useUser();
   const navigate = useNavigate();
 
@@ -51,7 +47,7 @@ const BookSubstance = (props) => {
           {title}
         </Typography>
         <Typography noWrap variant="subtitle1">
-          by {authorsToText(authors)}
+          by {author}
         </Typography>
         <Rating defaultValue={rating} precision={0.5} readOnly />
       </Grid>
@@ -103,7 +99,7 @@ export default function BookContent(props) {
       <Grid item xs={8} style={{ height: "100%" }}>
         <BookSubstance
           title={bookData.title}
-          authors={bookData.authors}
+          author={bookData.author}
           rating={bookData.rating}
           description={bookData.description}
         ></BookSubstance>
