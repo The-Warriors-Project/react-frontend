@@ -6,7 +6,6 @@ import {
   Typography,
   CardActions,
   Button,
-  Box,
 } from "@mui/material";
 import { Container } from "@mui/system";
 import { truncate } from "../util";
@@ -45,9 +44,9 @@ const styles = {
 };
 
 function MediaCard(props) {
-  const { name, description, imageUrl, idx } = props;
+  const { name, description, imageUrl, _id } = props;
   return (
-    <Card sx={styles.card} key={idx}>
+    <Card sx={styles.card}>
       <CardMedia component="img" sx={styles.cardMedia} image={imageUrl} />
       <CardContent sx={styles.cardContent}>
         <Typography
@@ -68,7 +67,9 @@ function MediaCard(props) {
         </Typography>
       </CardContent>
       <CardActions sx={styles.cardActions}>
-        <Button size="small">Learn More and Review!</Button>
+        <Button href={"/books/" + _id} size="small">
+          Learn More and Review!
+        </Button>
       </CardActions>
     </Card>
   );
@@ -97,13 +98,14 @@ function Cards(props) {
           );
         })}
       <Grid container spacing={4}>
-        {cardsData.map(({ title, description, picture }, idx) => (
+        {cardsData.map(({ title, description, picture, _id }, idx) => (
           <Grid item xs={12} sm={6} md={4} key={idx}>
             <MediaCard
               name={title}
               description={description ? description : ""}
               imageUrl={picture}
               key={idx}
+              _id={_id}
             ></MediaCard>
           </Grid>
         ))}

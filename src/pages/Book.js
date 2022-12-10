@@ -11,7 +11,7 @@ export function Book() {
     <>
       <Grid container direction="column" spacing={2}>
         <Grid item>
-          <BookContent></BookContent>
+          <BookContent book_id={id}></BookContent>
         </Grid>
         <Grid item>
           <Reviews></Reviews>

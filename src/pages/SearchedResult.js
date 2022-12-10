@@ -20,10 +20,6 @@ export default function SearchedResults() {
       });
   }, [book_name]);
 
-  console.log(searchedBooks);
-  // console.log(searchedBooks);
-  // return <></>;
-
   return (
     <>
       {searchedBooks ? (
