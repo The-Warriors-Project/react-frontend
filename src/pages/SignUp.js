@@ -17,9 +17,11 @@ import {
 } from "../util";
 import { useSnackbar } from "../context/SnackbarContext";
 import { signup } from "../api/UsersAPI";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
   const { openSuccessMessage, openErrorMessage } = useSnackbar();
+  const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState({
     username: "",
@@ -82,7 +84,16 @@ export default function SignUp() {
   };
 
   const handleSignupMessage = async () => {
-    await signup(formValues, openSuccessMessage, openErrorMessage);
+    await signup(
+      formValues,
+      (successMsg) => {
+        openSuccessMessage(successMsg + " Redirecting shortly...");
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
+      },
+      openErrorMessage
+    );
   };
 
   const handleSubmit = async (event) => {
