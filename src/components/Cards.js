@@ -8,6 +8,7 @@ import {
   Button,
 } from "@mui/material";
 import { Container } from "@mui/system";
+import { Link } from "react-router-dom";
 import { truncate } from "../util";
 
 const styles = {
@@ -67,7 +68,7 @@ function MediaCard(props) {
         </Typography>
       </CardContent>
       <CardActions sx={styles.cardActions}>
-        <Button href={"/books/" + _id} size="small">
+        <Button component={Link} to={"/books/" + _id} size="small">
           Learn More and Review!
         </Button>
       </CardActions>
