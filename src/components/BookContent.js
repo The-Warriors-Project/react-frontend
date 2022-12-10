@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { getBookInfoBookID } from "../api/BooksAPI";
 
 import { useUser } from "../context/UserContext";
+import ReviewForm from "./ReviewForm";
 
 const styles = {
   bookInfoSection: {
@@ -62,7 +63,7 @@ const BookSubstance = (props) => {
       </Grid>
       <Grid item style={{ height: "10%" }}>
         {user ? (
-          <Button variant="contained">Rate and Review!</Button>
+          <ReviewForm></ReviewForm>
         ) : (
           <Button
             variant="contained"
