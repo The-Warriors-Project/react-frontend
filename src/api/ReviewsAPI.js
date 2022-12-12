@@ -22,7 +22,7 @@ export async function addReview(reviewInfo, successCallback, errorCallback) {
     };
 
     const res = await axios(options);
-    const { data, status } = res;
+    const { status } = res;
 
     if (status === 200) {
       successCallback("Successful Review");
