@@ -31,7 +31,7 @@ const BookImage = (props) => {
 };
 
 const BookSubstance = (props) => {
-  const { title, author, rating, description } = props;
+  const { title, author, rating, description, fetchData } = props;
   const { user } = useUser();
   const navigate = useNavigate();
 
@@ -49,7 +49,7 @@ const BookSubstance = (props) => {
         <Typography noWrap variant="subtitle1">
           by {author}
         </Typography>
-        <Rating defaultValue={rating} precision={0.5} readOnly />
+        <Rating defaultValue={rating ? rating : 0} precision={0.5} readOnly />
       </Grid>
       <Grid item style={{ height: "60%", overflow: "auto" }}>
         <Typography variant="h6">Description</Typography>
@@ -59,7 +59,7 @@ const BookSubstance = (props) => {
       </Grid>
       <Grid item style={{ height: "10%" }}>
         {user ? (
-          <ReviewForm></ReviewForm>
+          <ReviewForm fetchData={fetchData}></ReviewForm>
         ) : (
           <Button
             variant="contained"
@@ -76,19 +76,7 @@ const BookSubstance = (props) => {
 };
 
 export default function BookContent(props) {
-  const { book_id } = props;
-  const [bookData, setBookData] = useState(null);
-
-  useEffect(() => {
-    getBookInfoBookID(book_id)
-      .then((bookData) => {
-        setBookData(bookData);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, []);
-
+  const { avgRating, bookData, fetchData } = props;
   if (!bookData) return <></>;
 
   return (
@@ -100,7 +88,8 @@ export default function BookContent(props) {
         <BookSubstance
           title={bookData.title}
           author={bookData.author}
-          rating={bookData.rating}
+          rating={avgRating}
+          fetchData={fetchData}
           description={bookData.description}
         ></BookSubstance>
       </Grid>

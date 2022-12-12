@@ -1,12 +1,14 @@
 import { Button, Grid, Rating, TextField } from "@mui/material";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { addReview } from "../api/BooksAPI";
+import { addReview } from "../api/ReviewsAPI";
 import { useSnackbar } from "../context/SnackbarContext";
 
 import { useUser } from "../context/UserContext";
 
-export default function ReviewForm() {
+export default function ReviewForm(props) {
+  const { fetchData } = props;
+
   const [rating, setRating] = useState(3);
   const [reviewText, setReviewText] = useState("");
   const { openSuccessMessage, openErrorMessage } = useSnackbar();
@@ -22,11 +24,12 @@ export default function ReviewForm() {
       score: rating,
     };
 
-    const handleSuccess = () => {
-      openSuccessMessage("Successfully reviewed and rated!");
+    const handleSuccess = async (successMsg) => {
+      openSuccessMessage(successMsg);
+      await fetchData();
     };
-    const handleFailure = () => {
-      openErrorMessage("Something went wrong. Please try later.");
+    const handleFailure = (errorMsg) => {
+      openErrorMessage(errorMsg);
     };
 
     await addReview(reviewInfo, handleSuccess, handleFailure);

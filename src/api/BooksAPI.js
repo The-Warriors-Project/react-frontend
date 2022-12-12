@@ -27,20 +27,6 @@ export async function getBookInfoBookID(book_id) {
   }
 }
 
-export async function addReview(reviewInfo, successCallback, errorCallback) {
-  try {
-    const res = await axios.post(
-      `https://8yffpe0pcl.execute-api.us-east-1.amazonaws.com/dev/api/v1/reviews`,
-      reviewInfo
-    );
-    await res.data;
-    successCallback();
-  } catch (e) {
-    errorCallback();
-    return null;
-  }
-}
-
 // books come in object form {0:{}, 1:{}, ...}
 // helper to convert this to [{...}, {...}, {...}]
 const booksToArray = (books) => {
