@@ -40,7 +40,7 @@ export function Book() {
 
   useEffect(() => {
     fetchData();
-  });
+  }, []);
 
   return (
     <>
