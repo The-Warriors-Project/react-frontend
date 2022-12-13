@@ -7,7 +7,7 @@ import {getUserInfoUsername} from "../api/UsersAPI";
 import {useUser} from "../context/UserContext";
 
 export default function ReviewForm(props) {
-  const {fetchData} = props;
+  const {fetchData, title} = props;
 
   const [rating, setRating] = useState(3);
   const [reviewText, setReviewText] = useState("");
@@ -22,6 +22,7 @@ export default function ReviewForm(props) {
     })
     const reviewInfo = {
       book_id: id,
+      title: title,
       review_text: reviewText,
       username: user.username,
       email: email,
