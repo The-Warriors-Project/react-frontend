@@ -45,7 +45,7 @@ export default function Reviews(props) {
         </Grid>
         <Grid item style={{ width: "100%" }}>
           <Grid direction="column" spacing={2} container>
-            {reviewsData ? (
+            {reviewsData && reviewsData.length ? (
               reviewsData.map(
                 ({ username, score, review_text, num_reviews }, idx) => {
                   return (

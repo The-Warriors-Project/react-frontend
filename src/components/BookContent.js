@@ -1,8 +1,6 @@
-import {Button, Grid, Rating, Typography} from "@mui/material";
-import {Box} from "@mui/system";
-import {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {getBookInfoBookID} from "../api/BooksAPI";
+import { Button, Grid, Rating, Typography } from "@mui/material";
+import { Box } from "@mui/system";
+import { useNavigate } from "react-router-dom";
 
 import {useUser} from "../context/UserContext";
 import ReviewForm from "./ReviewForm";
