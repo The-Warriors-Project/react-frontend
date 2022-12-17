@@ -2,32 +2,34 @@ import { Grid, Paper, Typography, Rating, Stack } from "@mui/material";
 import { Box } from "@mui/system";
 import { Link } from "react-router-dom";
 
-const reviewsData = [
-  {
-    bookName: "Some book",
-    imageUrl: "https://m.media-amazon.com/images/I/51-5ZXYtcML.jpg",
-    rating: 3,
-    bookID: 2,
-    reviewText:
-      "Phasellus tristique, lorem ac auctor dignissim, tellus nisi finibus tellus, et luctus felis tellus sed felis. Cras sem purus, posuere varius nunc at, varius ultrices enim. Phasellus urna ex, volutpat at felis vel, suscipit finibus dui. Vivamus non congue quam, in vulputate odio. Phasellus eleifend commodo arcu eget sodales. Ut vulputate ante tortor, at condimentum nunc accumsan non. Nam fermentum orci at consequat volutpat. Morbi consectetur lorem eget ante viverra, sed lacinia est vehicula. Morbi non felis urna. Integer tempor volutpat arcu sit amet lacinia.",
-  },
-  {
-    bookName: "Some book",
-    imageUrl: "https://m.media-amazon.com/images/I/51-5ZXYtcML.jpg",
-    rating: 3,
-    bookID: 2,
-    reviewText:
-      "Phasellus tristique, lorem ac auctor dignissim, tellus nisi finibus tellus, et luctus felis tellus sed felis. Cras sem purus, posuere varius nunc at, varius ultrices enim. Phasellus urna ex, volutpat at felis vel, suscipit finibus dui. Vivamus non congue quam, in vulputate odio. Phasellus eleifend commodo arcu eget sodales. Ut vulputate ante tortor, at condimentum nunc accumsan non. Nam fermentum orci at consequat volutpat. Morbi consectetur lorem eget ante viverra, sed lacinia est vehicula. Morbi non felis urna. Integer tempor volutpat arcu sit amet lacinia.",
-  },
-  {
-    bookName: "Some book",
-    imageUrl: "https://m.media-amazon.com/images/I/51-5ZXYtcML.jpg",
-    rating: 3,
-    bookID: 2,
-    reviewText:
-      "Phasellus tristique, lorem ac auctor dignissim, tellus nisi finibus tellus, et luctus felis tellus sed felis. Cras sem purus, posuere varius nunc at, varius ultrices enim. Phasellus urna ex, volutpat at felis vel, suscipit finibus dui. Vivamus non congue quam, in vulputate odio. Phasellus eleifend commodo arcu eget sodales. Ut vulputate ante tortor, at condimentum nunc accumsan non. Nam fermentum orci at consequat volutpat. Morbi consectetur lorem eget ante viverra, sed lacinia est vehicula. Morbi non felis urna. Integer tempor volutpat arcu sit amet lacinia.",
-  },
-];
+// const reviewsData = [
+//   {
+//     bookName: "Some book",
+//     imageUrl: "https://m.media-amazon.com/images/I/51-5ZXYtcML.jpg",
+//     rating: 3,
+//     bookID: 2,
+//     reviewText:
+//       "Phasellus tristique, lorem ac auctor dignissim, tellus nisi finibus tellus, et luctus felis tellus sed felis. Cras sem purus, posuere varius nunc at, varius ultrices enim. Phasellus urna ex, volutpat at felis vel, suscipit finibus dui. Vivamus non congue quam, in vulputate odio. Phasellus eleifend commodo arcu eget sodales. Ut vulputate ante tortor, at condimentum nunc accumsan non. Nam fermentum orci at consequat volutpat. Morbi consectetur lorem eget ante viverra, sed lacinia est vehicula. Morbi non felis urna. Integer tempor volutpat arcu sit amet lacinia.",
+//   },
+//   {
+//     bookName: "Some book",
+//     imageUrl: "https://m.media-amazon.com/images/I/51-5ZXYtcML.jpg",
+//     rating: 3,
+//     bookID: 2,
+//     reviewText:
+//       "Phasellus tristique, lorem ac auctor dignissim, tellus nisi finibus tellus, et luctus felis tellus sed felis. Cras sem purus, posuere varius nunc at, varius ultrices enim. Phasellus urna ex, volutpat at felis vel, suscipit finibus dui. Vivamus non congue quam, in vulputate odio. Phasellus eleifend commodo arcu eget sodales. Ut vulputate ante tortor, at condimentum nunc accumsan non. Nam fermentum orci at consequat volutpat. Morbi consectetur lorem eget ante viverra, sed lacinia est vehicula. Morbi non felis urna. Integer tempor volutpat arcu sit amet lacinia.",
+//   },
+//   {
+//     bookName: "Some book",
+//     imageUrl: "https://m.media-amazon.com/images/I/51-5ZXYtcML.jpg",
+//     rating: 3,
+//     bookID: 2,
+//     reviewText:
+//       "Phasellus tristique, lorem ac auctor dignissim, tellus nisi finibus tellus, et luctus felis tellus sed felis. Cras sem purus, posuere varius nunc at, varius ultrices enim. Phasellus urna ex, volutpat at felis vel, suscipit finibus dui. Vivamus non congue quam, in vulputate odio. Phasellus eleifend commodo arcu eget sodales. Ut vulputate ante tortor, at condimentum nunc accumsan non. Nam fermentum orci at consequat volutpat. Morbi consectetur lorem eget ante viverra, sed lacinia est vehicula. Morbi non felis urna. Integer tempor volutpat arcu sit amet lacinia.",
+//   },
+// ];
+
+
 
 const styles = {
   reviewCard: {
@@ -82,7 +84,14 @@ const ReviewedBook = (props) => {
   );
 };
 
-export default function MyReviewsContent() {
+export default function MyReviewsContent(props) {
+  const { reviewsData } = props;
+  if (!reviewsData) {
+    return <></>
+  }
+  console.log("this is the reviews data")
+  console.log(reviewsData)
+  console.log(reviewsData==[]? console.log(reviewsData[0]['book_id']) : console.log("Not up to date yet"))
   return (
     <>
       <Grid
@@ -94,15 +103,15 @@ export default function MyReviewsContent() {
         <Grid item style={{ width: "100%" }}>
           <Grid direction="column" spacing={2} container>
             {reviewsData.map(
-              ({ bookName, imageUrl, rating, reviewText, bookID }, idx) => {
+              ({score, review_text, book_id, bookName, imageUrl}, idx) => {
                 return (
                   <Grid item key={idx}>
                     <ReviewedBook
                       bookName={bookName}
                       imageUrl={imageUrl}
-                      rating={rating}
-                      reviewText={reviewText}
-                      bookID={bookID}
+                      rating={score}
+                      reviewText={review_text}
+                      bookID={book_id}
                     ></ReviewedBook>
                   </Grid>
                 );
