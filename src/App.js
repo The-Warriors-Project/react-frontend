@@ -3,12 +3,12 @@ import { CssBaseline, Container } from "@mui/material";
 
 import { Book } from "./pages/Book";
 import { Home } from "./pages/Home";
-import { User } from "./pages/User";
 import { NotFound } from "./pages/NotFound";
 import Navbar from "./components/Navbar";
 import BackgroundVideo from "./components/BackgroundVideo";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
+import { MyReviews } from "./pages/MyReviews";
 
 import { SnackbarProvider } from "./context/SnackbarContext";
 import { UserProvider } from "./context/UserContext";
@@ -43,7 +43,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />}></Route>
               <Route path="/books/:id" element={<Book />}></Route>
-              <Route path="/user" element={<User />}></Route>
+              <Route path="/myreviews" element={<MyReviews />}></Route>
               <Route path="/signup" element={<SignUp />}></Route>
               <Route path="/login" element={<SignIn />}></Route>
               <Route path="/search" element={<SearchedResults />}></Route>

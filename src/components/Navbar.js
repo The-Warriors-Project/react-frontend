@@ -64,8 +64,8 @@ function NavBar() {
           ></SearchBar>
           {user ? (
             <>
-              <Button color="inherit" component={RouterLink} to="/user">
-                Profile
+              <Button color="inherit" component={RouterLink} to="/myreviews">
+                Reviews
               </Button>
               <Button color="inherit" onClick={logout}>
                 Logout

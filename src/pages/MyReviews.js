@@ -1,20 +1,17 @@
 import { Button, Typography } from "@mui/material";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import BookShelf from "../components/BookShelf";
 import { useUser } from "../context/UserContext";
 import { Stack } from "@mui/system";
-export function User() {
+export function MyReviews() {
   const { user } = useUser();
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!user) {
-      // navigate("/");
-    }
-  }, []);
+  if (!user) {
+    return <Navigate replace to="/login"></Navigate>;
+  }
+
   return (
     <>
       <Stack direction="column" alignItems="flex-start">
