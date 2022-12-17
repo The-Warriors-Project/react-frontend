@@ -34,7 +34,7 @@ const Review = (props) => {
   );
 };
 
-export default function BookReviewsContent(props) {
+export default function Reviews(props) {
   const { reviewsData } = props;
 
   return (

@@ -1,11 +1,12 @@
-import { Button, Typography } from "@mui/material";
-import { Navigate } from "react-router-dom";
+import { Navigate } from "react-router";
+import { Stack } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { useUser } from "../context/UserContext";
-import { Stack } from "@mui/system";
-import MyReviewsContent from "../components/MyReviewsContent";
-export function MyReviews() {
+import { Button, Typography } from "@mui/material";
+import MyBookShelfContent from "../components/MyBookshelfContent";
+
+export function MyBookShelf() {
   const { user } = useUser();
 
   if (!user) {
@@ -26,13 +27,13 @@ export function MyReviews() {
             color="textPrimary"
             gutterBottom
           >
-            {user ? user.username : "SomeUser"}'s Reviews
+            {user ? user.username : "SomeUser"}'s Bookshelf
           </Typography>
           <Button variant="outlined" startIcon={<DeleteIcon />} color="error">
             Delete Your Profile
           </Button>
         </Stack>
-        <MyReviewsContent></MyReviewsContent>
+        <MyBookShelfContent></MyBookShelfContent>
       </Stack>
     </>
   );

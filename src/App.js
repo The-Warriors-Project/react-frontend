@@ -14,6 +14,7 @@ import { SnackbarProvider } from "./context/SnackbarContext";
 import { UserProvider } from "./context/UserContext";
 import SearchedResults from "./pages/SearchedResult";
 import CustomizedSnackbars from "./components/SnackBar";
+import { MyBookShelf } from "./pages/MyBookShelf";
 
 const styles = {
   container: {
@@ -44,6 +45,7 @@ function App() {
               <Route path="/" element={<Home />}></Route>
               <Route path="/books/:id" element={<Book />}></Route>
               <Route path="/myreviews" element={<MyReviews />}></Route>
+              <Route path="/mybookshelf" element={<MyBookShelf />}></Route>
               <Route path="/signup" element={<SignUp />}></Route>
               <Route path="/login" element={<SignIn />}></Route>
               <Route path="/search" element={<SearchedResults />}></Route>

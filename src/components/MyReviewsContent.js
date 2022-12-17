@@ -82,7 +82,7 @@ const ReviewedBook = (props) => {
   );
 };
 
-export default function BookShelf() {
+export default function MyReviewsContent() {
   return (
     <>
       <Grid
