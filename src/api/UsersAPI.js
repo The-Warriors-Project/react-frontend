@@ -1,7 +1,7 @@
 import axios from "axios";
 import qs from "qs";
 import jwtDecode from "jwt-decode";
-import {objectsToArray} from "./BooksAPI";
+import { objectsToArray } from "./BooksAPI";
 
 const [OK_200] = [200, 401];
 

@@ -1,21 +1,21 @@
-import {Route, Routes} from "react-router-dom";
-import {Container, CssBaseline} from "@mui/material";
+import { Route, Routes } from "react-router-dom";
+import { Container, CssBaseline } from "@mui/material";
 
-import {Book} from "./pages/Book";
-import {Home} from "./pages/Home";
-import {NotFound} from "./pages/NotFound";
+import { Book } from "./pages/Book";
+import { Home } from "./pages/Home";
+import { NotFound } from "./pages/NotFound";
 import Navbar from "./components/Navbar";
 import BackgroundVideo from "./components/BackgroundVideo";
 import SignUp from "./pages/SignUp";
 import Verify from "./pages/Verify";
 import SignIn from "./pages/SignIn";
-import {MyReviews} from "./pages/MyReviews";
+import { MyReviews } from "./pages/MyReviews";
 
-import {SnackbarProvider} from "./context/SnackbarContext";
-import {UserProvider} from "./context/UserContext";
+import { SnackbarProvider } from "./context/SnackbarContext";
+import { UserProvider } from "./context/UserContext";
 import SearchedResults from "./pages/SearchedResult";
 import CustomizedSnackbars from "./components/SnackBar";
-import {MyBookShelf} from "./pages/MyBookShelf";
+import { MyBookShelf } from "./pages/MyBookShelf";
 
 const styles = {
   container: {

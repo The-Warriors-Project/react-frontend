@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -8,12 +8,12 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import {isValidPassword, isValidUsername} from "../util";
-import {useUser} from "../context/UserContext";
-import {login} from "../api/UsersAPI";
-import {useSnackbar} from "../context/SnackbarContext";
+import { isValidPassword, isValidUsername } from "../util";
+import { useUser } from "../context/UserContext";
+import { login } from "../api/UsersAPI";
+import { useSnackbar } from "../context/SnackbarContext";
 
 export default function SignIn() {
   const {openErrorMessage} = useSnackbar();

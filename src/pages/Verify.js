@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -7,9 +7,9 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import {useLocation, useNavigate} from "react-router-dom";
-import {useSnackbar} from "../context/SnackbarContext";
-import {verify} from "../api/UsersAPI";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useSnackbar } from "../context/SnackbarContext";
+import { verify } from "../api/UsersAPI";
 
 export default function Verify() {
   const {openSuccessMessage, openErrorMessage} = useSnackbar();
