@@ -64,6 +64,9 @@ function NavBar() {
           ></SearchBar>
           {user ? (
             <>
+              <Button color="inherit" component={RouterLink} to="/mybookshelf">
+                BookShelf
+              </Button>
               <Button color="inherit" component={RouterLink} to="/myreviews">
                 Reviews
               </Button>

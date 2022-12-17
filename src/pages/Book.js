@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { getReviewsByBookID } from "../api/ReviewsAPI";
 import BookContent from "../components/BookContent";
-import Reviews from "../components/Reviews";
+import BookReviewsContent from "../components/BookReviewsContent";
 import { getBookInfoBookID } from "../api/BooksAPI";
 
 export function Book() {
@@ -53,7 +53,7 @@ export function Book() {
           ></BookContent>
         </Grid>
         <Grid item>
-          <Reviews reviewsData={reviews}></Reviews>
+          <BookReviewsContent reviewsData={reviews}></BookReviewsContent>
         </Grid>
       </Grid>
     </>
