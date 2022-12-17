@@ -26,10 +26,10 @@ const formatLoginInfo = (loginInfo) => {
     return formatted;
 };
 
-const formatVerifyInfo = (verifyInfo) => {
+const formatVerifyInfo = (username, code) => {
     const formatted = {
-        username: verifyInfo.username,
-        code: verifyInfo.code,
+        user_name: username,
+        verification_code: code,
     };
 
     return formatted;
@@ -81,14 +81,12 @@ export async function signup(newUserInfo, successCallback, errorCallback) {
 }
 
 export async function verify(username, code, successCallback, errorCallback) {
-
     try {
         const res = await axios.put(
-            `https://8yffpe0pcl.execute-api.us-east-1.amazonaws.com/dev/api/v1/user_name/user_verification/${username}`,
+            `https://8yffpe0pcl.execute-api.us-east-1.amazonaws.com/dev/api/v1/users/user_name/user_verification/${username}`,
             formatVerifyInfo(username, code)
         );
         const data = await res.data;
-
         if (!data.success) {
             errorCallback(data.payload);
         } else {

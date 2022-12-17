@@ -14,7 +14,6 @@ import { verify } from "../api/UsersAPI";
 export default function Verify() {
     const { openSuccessMessage, openErrorMessage } = useSnackbar();
     const [formValues, setFormValues] = useState({ verificationCode: "" });
-    // const [formErrors, setFormErrors] = useState({ verificationCode: "" });
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -77,10 +76,8 @@ export default function Verify() {
                                 id="verificationCode"
                                 label="Verification Code"
                                 name="verificationCode"
-                                // error={!!formErrors.verificationCode}
                                 value={formValues.verificationCode}
                                 onChange={handleChange}
-                                // helperText={formErrors.verificationCode}
                             />
                         </Grid>
                     </Grid>
