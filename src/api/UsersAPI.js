@@ -1,7 +1,7 @@
 import axios from "axios";
 import qs from "qs";
 import jwtDecode from "jwt-decode";
-import { objectsToArray } from "./BooksAPI";
+import {objectsToArray} from "./BooksAPI";
 
 const [OK_200] = [200, 401];
 
@@ -40,13 +40,13 @@ export async function login(loginInfo, successCallback, errorCallback) {
     const formattedLoginInfo = formatLoginInfo(loginInfo);
     const options = {
       method: "POST",
-      headers: { "content-type": "application/x-www-form-urlencoded" },
+      headers: {"content-type": "application/x-www-form-urlencoded"},
       data: qs.stringify(formattedLoginInfo),
       url: `https://8yffpe0pcl.execute-api.us-east-1.amazonaws.com/dev/api/v1/users/token`,
     };
 
     const res = await axios(options);
-    const { data, status } = res;
+    const {data, status} = res;
 
     if (status === OK_200) {
       const decodedToken = jwtDecode(data.access_token);
