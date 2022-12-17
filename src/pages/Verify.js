@@ -12,14 +12,14 @@ import { useSnackbar } from "../context/SnackbarContext";
 import { verify } from "../api/UsersAPI";
 
 export default function Verify() {
-  const {openSuccessMessage, openErrorMessage} = useSnackbar();
-  const [formValues, setFormValues] = useState({verificationCode: ""});
+  const { openSuccessMessage, openErrorMessage } = useSnackbar();
+  const [formValues, setFormValues] = useState({ verificationCode: "" });
   const navigate = useNavigate();
   const location = useLocation();
 
   const handleChange = (e) => {
-    const {name, value} = e.target;
-    setFormValues({...formValues, [name]: value});
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
   };
 
   const handleSubmit = async (event) => {
@@ -48,7 +48,7 @@ export default function Verify() {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{m: 1, bgcolor: "secondary.main"}}>
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon/>
         </Avatar>
         <Typography component="h1" variant="h5" align="center">
@@ -67,7 +67,7 @@ export default function Verify() {
         <Typography component="h1" variant="subtitle1" align="center">
           To verify your account, please enter the code below.
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 3}}>
+        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -85,7 +85,7 @@ export default function Verify() {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{mt: 3, mb: 2}}
+            sx={{ mt: 3, mb: 2 }}
           >
             Verify
           </Button>

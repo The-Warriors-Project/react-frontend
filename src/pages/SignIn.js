@@ -16,16 +16,16 @@ import { login } from "../api/UsersAPI";
 import { useSnackbar } from "../context/SnackbarContext";
 
 export default function SignIn() {
-  const {openErrorMessage} = useSnackbar();
+  const { openErrorMessage } = useSnackbar();
 
-  const [formValues, setFormValues] = useState({username: "", password: ""});
-  const [formErrors, setFormErrors] = useState({username: "", password: ""});
-  const {setUser} = useUser();
+  const [formValues, setFormValues] = useState({ username: "", password: "" });
+  const [formErrors, setFormErrors] = useState({ username: "", password: "" });
+  const { setUser } = useUser();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const {name, value} = e.target;
-    setFormValues({...formValues, [name]: value});
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
   };
 
   const validate = () => {
@@ -46,7 +46,7 @@ export default function SignIn() {
   };
 
   const handleSuccessLogin = (userInfo) => {
-    setUser({username: userInfo.sub});
+    setUser({ username: userInfo.sub });
     navigate("/");
   };
 
@@ -73,13 +73,13 @@ export default function SignIn() {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{m: 1, bgcolor: "secondary.main"}}>
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon/>
         </Avatar>
         <Typography component="h1" variant="h5">
           Log in
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 3}}>
+        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -115,7 +115,7 @@ export default function SignIn() {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{mt: 3, mb: 2}}
+            sx={{ mt: 3, mb: 2 }}
           >
             Log In
           </Button>
