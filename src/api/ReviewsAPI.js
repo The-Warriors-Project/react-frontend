@@ -13,6 +13,19 @@ export async function getReviewsByBookID(book_id) {
   }
 }
 
+export async function getReviewsByUsername(username) {
+  try {
+    const res = await axios.get(
+      `https://8yffpe0pcl.execute-api.us-east-1.amazonaws.com/dev/api/v1/reviews/username/${username}`
+    );
+    const reviewsData = await res.data;
+    return reviewsData;
+  } catch (e) {
+    console.log(e);
+    return {};
+  }
+}
+
 export async function addReview(reviewInfo, successCallback, errorCallback) {
   try {
     const options = {
