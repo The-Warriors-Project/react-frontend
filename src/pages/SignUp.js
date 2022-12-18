@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -9,13 +9,13 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
-import {isValidEmail, isValidFirstLastName, isValidPassword, isValidUsername,} from "../util";
-import {useSnackbar} from "../context/SnackbarContext";
-import {signup} from "../api/UsersAPI";
-import {useNavigate} from "react-router-dom";
+import { isValidEmail, isValidFirstLastName, isValidPassword, isValidUsername, } from "../util";
+import { useSnackbar } from "../context/SnackbarContext";
+import { signup } from "../api/UsersAPI";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
-  const {openSuccessMessage, openErrorMessage} = useSnackbar();
+  const { openSuccessMessage, openErrorMessage } = useSnackbar();
   const navigate = useNavigate();
 
   const [formValues, setFormValues] = useState({
@@ -35,8 +35,8 @@ export default function SignUp() {
   });
 
   const handleChange = (e) => {
-    const {name, value} = e.target;
-    setFormValues({...formValues, [name]: value});
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
   };
 
   const validate = () => {
@@ -85,10 +85,7 @@ export default function SignUp() {
         openSuccessMessage(successMsg + " Redirecting shortly...");
         setTimeout(() => {
           navigate("/signup/verify", {
-            state: {
-              username: formValues.username,
-              email: formValues.email,
-            }
+            state: { username: formValues.username }
           });
         }, 3000);
       },
@@ -114,13 +111,13 @@ export default function SignUp() {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{m: 1, bgcolor: "secondary.main"}}>
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon/>
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 3}}>
+        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -198,7 +195,7 @@ export default function SignUp() {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{mt: 3, mb: 2}}
+            sx={{ mt: 3, mb: 2 }}
           >
             Sign Up
           </Button>

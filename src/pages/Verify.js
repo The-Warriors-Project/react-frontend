@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -13,7 +13,7 @@ import { verify } from "../api/UsersAPI";
 
 export default function Verify() {
   const { openSuccessMessage, openErrorMessage } = useSnackbar();
-  const [formValues, setFormValues] = useState({ verificationCode: "" });
+  const [formValues, setFormValues] = useState({ username: "", verificationCode: "" });
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -22,11 +22,19 @@ export default function Verify() {
     setFormValues({ ...formValues, [name]: value });
   };
 
+  // execute once on page load. If we're coming from '/signup', set username from prev page state
+  useEffect(() => {
+      if (location.state && location.state.username) {
+        setFormValues({ ...formValues, username: location.state.username })
+      }
+    },   // eslint-disable-next-line react-hooks/exhaustive-deps
+    [])
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     await verify(
-      location.state.username, formValues.verificationCode,
+      formValues.username, formValues.verificationCode,
       (successMsg) => {
         openSuccessMessage(successMsg + " Redirecting shortly...");
         setTimeout(() => {
@@ -55,20 +63,25 @@ export default function Verify() {
           Welcome to Reader Hub
         </Typography>
         <Typography component="h1" variant="h5" align="center">
-          {location.state.username}
-        </Typography>
-        <Typography component="h1" variant="h5" align="center">
           Please verify your account.
         </Typography>
         <br></br>
         <Typography component="h1" variant="subtitle1" align="center">
-          A one-time account verification code was sent to {location.state.email}
-        </Typography>
-        <Typography component="h1" variant="subtitle1" align="center">
-          To verify your account, please enter the code below.
+          To verify your account, enter your username and verification code that was emailed to you below.
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                name="username"
+                onChange={handleChange}
+                value={formValues.username}
+              />
+            </Grid>
             <Grid item xs={12}>
               <TextField
                 required
