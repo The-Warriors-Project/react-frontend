@@ -9,12 +9,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
-import {
-  isValidEmail,
-  isValidUsername,
-  isValidFirstLastName,
-  isValidPassword,
-} from "../util";
+import { isValidEmail, isValidFirstLastName, isValidPassword, isValidUsername, } from "../util";
 import { useSnackbar } from "../context/SnackbarContext";
 import { signup } from "../api/UsersAPI";
 import { useNavigate } from "react-router-dom";
@@ -89,7 +84,9 @@ export default function SignUp() {
       (successMsg) => {
         openSuccessMessage(successMsg + " Redirecting shortly...");
         setTimeout(() => {
-          navigate("/login");
+          navigate("/signup/verify", {
+            state: { username: formValues.username }
+          });
         }, 3000);
       },
       openErrorMessage
@@ -115,7 +112,7 @@ export default function SignUp() {
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
+          <LockOutlinedIcon/>
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up

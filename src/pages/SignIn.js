@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
 
-import { isValidUsername, isValidPassword } from "../util";
+import { isValidPassword, isValidUsername } from "../util";
 import { useUser } from "../context/UserContext";
 import { login } from "../api/UsersAPI";
 import { useSnackbar } from "../context/SnackbarContext";
@@ -74,7 +74,7 @@ export default function SignIn() {
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
+          <LockOutlinedIcon/>
         </Avatar>
         <Typography component="h1" variant="h5">
           Log in
