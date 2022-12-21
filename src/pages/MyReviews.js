@@ -1,18 +1,21 @@
-import { Button, Typography } from "@mui/material";
-import { Navigate } from "react-router-dom";
+import {Button, Typography} from "@mui/material";
+import {Navigate, useNavigate} from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
-import { useUser } from "../context/UserContext";
-import { Stack } from "@mui/system";
+import {useUser} from "../context/UserContext";
+import {Stack} from "@mui/system";
 import MyReviewsContent from "../components/MyReviewsContent";
-import { getReviewsByBookID, getReviewsByUsername } from "../api/ReviewsAPI";
-import { getBookInfoBookID } from "../api/BooksAPI";
-
+import {getReviewsByUsername} from "../api/ReviewsAPI";
+import {getBookInfoBookID} from "../api/BooksAPI";
+import {useSnackbar} from "../context/SnackbarContext";
+import {deleteProfile} from "../api/CompositeAPI";
 
 
 export function MyReviews() {
-  const { user } = useUser();
+  const {user, setUser} = useUser();
+  const navigate = useNavigate();
+  const {openSuccessMessage, openErrorMessage} = useSnackbar();
 
   const [reviews, setReviews] = useState([]);
 
@@ -22,14 +25,13 @@ export function MyReviews() {
       reviewsData = reviewsData.reviews
       for (let i = 0; i < reviewsData.length; i++) {
         const bookData = await getBookInfoBookID(reviewsData[i]['book_id'])
-        reviewsData[i]['bookName'] = bookData.title 
-        reviewsData[i]['imageUrl'] = bookData.picture 
+        reviewsData[i]['bookName'] = bookData.title
+        reviewsData[i]['imageUrl'] = bookData.picture
       }
       if (reviewsData.length) {
         setReviews(reviewsData)
       }
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e)
     }
   };
@@ -38,6 +40,22 @@ export function MyReviews() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleOnClick = async () => {
+    await deleteProfile(
+      user.username,
+      (successMsg) => {
+        openSuccessMessage(successMsg + ". Redirecting shortly...");
+        setTimeout(() => {
+          setUser(null)
+          navigate("/");
+        }, 3000);
+      },
+      () => {
+        openErrorMessage("Could not delete profile");
+      }
+    );
+  }
 
 
   if (!user) {
@@ -51,7 +69,7 @@ export function MyReviews() {
         <Stack
           direction="row"
           justifyContent="space-between"
-          sx={{ width: "100%", paddingBottom: 3 }}
+          sx={{width: "100%", paddingBottom: 3}}
         >
           <Typography
             variant="h4"
@@ -61,11 +79,11 @@ export function MyReviews() {
           >
             {user ? user.username : "SomeUser"}'s Reviews
           </Typography>
-          <Button variant="outlined" startIcon={<DeleteIcon />} color="error">
+          <Button variant="outlined" onClick={handleOnClick} startIcon={<DeleteIcon/>} color="error">
             Delete Your Profile
           </Button>
         </Stack>
-        <MyReviewsContent reviewsData={reviews}>  </MyReviewsContent> 
+        <MyReviewsContent reviewsData={reviews}> </MyReviewsContent>
       </Stack>
     </>
   );

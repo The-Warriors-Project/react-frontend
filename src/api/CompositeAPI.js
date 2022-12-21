@@ -49,3 +49,22 @@ export async function getLikedBooksByUsername(username) {
   }
 }
 
+export async function deleteProfile(username, successCallback, errorCallback) {
+  try {
+    console.log(`https://8yffpe0pcl.execute-api.us-east-1.amazonaws.com/dev/api/v1/composite/manage_users/${username}`)
+    const res = await axios.delete(
+      `https://8yffpe0pcl.execute-api.us-east-1.amazonaws.com/dev/api/v1/composite/manage_users/${username}`
+    );
+    const data = await res.data;
+    console.log(data)
+    if (!data.success) {
+      errorCallback();
+    } else {
+      successCallback(data.payload);
+    }
+  } catch (e) {
+    errorCallback(e.response.data);
+    return null;
+  }
+}
+
