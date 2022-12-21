@@ -11,21 +11,21 @@ const styles = {
     py: 1,
   },
   card: {
-    height: "25rem",
+    height: "20rem",
     paddingLeft: 0,
     paddingRight: 0,
   },
   cardContent: {
     height: "25%",
-    overflow: "auto",
+    overflow: "hidden",
     textOverflow: "ellipsis",
   },
   cardContent_title: {
-    overflow: "auto",
+    overflow: "hidden",
     textOverflow: "ellipsis",
   },
   cardContent_content: {
-    overflow: "auto",
+    overflow: "hidden",
     textOverflow: "ellipsis",
   },
   cardActions: {
@@ -51,6 +51,7 @@ function MediaCard(props) {
             gutterBottom
             variant="h6"
             component="div"
+            noWrap
             sx={styles.cardContent_title}
           >
             {name}
@@ -72,7 +73,6 @@ export default function MyBookShelfContent() {
   const [bookshelf, setBookshelf] = useState([]);
 
   const fetchData = async () => {
-    let bookshelfData = [];
     getLikedBooksByUsername(user.username).then(async (likedBooks) => {
       const promises = likedBooks.map(async (likedBook) => {
         let avgRating = await getReviewsByBookID(likedBook._id).then((result) => {
@@ -104,7 +104,7 @@ export default function MyBookShelfContent() {
     []);
 
   return (
-    <Container sx={styles.cardGrid}>
+    // <Container sx={styles.cardGrid}>
       <Grid container spacing={4}>
         {bookshelf.map(({title, rating, picture, _id}, idx) => (
           <Grid item xs={12} sm={6} md={3} key={idx}>
@@ -118,6 +118,6 @@ export default function MyBookShelfContent() {
           </Grid>
         ))}
       </Grid>
-    </Container>
+    // </Container>
   );
 }

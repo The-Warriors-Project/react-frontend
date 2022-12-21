@@ -51,7 +51,7 @@ export function MyReviews() {
         <Stack
           direction="row"
           justifyContent="space-between"
-          sx={{ width: "100%", paddingBottom: "2rem" }}
+          sx={{ width: "100%", paddingBottom: 3 }}
         >
           <Typography
             variant="h4"
