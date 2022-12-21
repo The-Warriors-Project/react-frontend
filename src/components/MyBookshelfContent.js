@@ -4,27 +4,28 @@ import {Link} from "react-router-dom";
 import {useUser} from "../context/UserContext";
 import {getLikedBooksByUsername} from "../api/CompositeAPI";
 import {getReviewsByBookID} from "../api/ReviewsAPI";
+import {useEffect, useState} from "react";
 
 const styles = {
   cardGrid: {
     py: 1,
   },
   card: {
-    height: "20rem",
+    height: "25rem",
     paddingLeft: 0,
     paddingRight: 0,
   },
   cardContent: {
     height: "25%",
-    overflow: "hidden",
+    overflow: "auto",
     textOverflow: "ellipsis",
   },
   cardContent_title: {
-    overflow: "hidden",
+    overflow: "auto",
     textOverflow: "ellipsis",
   },
   cardContent_content: {
-    overflow: "hidden",
+    overflow: "auto",
     textOverflow: "ellipsis",
   },
   cardActions: {
@@ -68,58 +69,44 @@ function MediaCard(props) {
 
 export default function MyBookShelfContent() {
   const {user} = useUser();
-  let data = []
+  const [bookshelf, setBookshelf] = useState([]);
 
-  async function getLikedBooks() {
-    return await getLikedBooksByUsername(user.username)
-  }
-
-  getLikedBooks().then((likedBooks) => {
-    likedBooks.forEach((likedBook) => {
-      const entry = {
-        title: likedBook.title,
-        picture: likedBook.picture,
-        _id: likedBook._id
+  const fetchData = async () => {
+    let bookshelfData = [];
+    getLikedBooksByUsername(user.username).then(async (likedBooks) => {
+      const promises = likedBooks.map(async (likedBook) => {
+        let avgRating = await getReviewsByBookID(likedBook._id).then((result) => {
+          const {average_score} = result;
+          return average_score > 0 ? average_score : 0;
+        }).catch((e) => {
+          console.log(e);
+        });
+        const entry = {
+          title: likedBook.title,
+          picture: likedBook.picture,
+          rating: avgRating,
+          _id: likedBook._id,
+        };
+        return entry;
+      });
+      const data = await Promise.all(promises);
+      if (data.length) {
+        setBookshelf(data);
       }
-      getReviewsByBookID(likedBook._id).then((result) => {
-        const {_, average_score} = result
-        entry["rating"] = average_score ? average_score : 0
-      }).catch((e) => {
-        console.log(e);
-      })
-      data.push(entry)
-    })
-  }).catch((e) => {
-    console.log(e);
-  })
+    }).catch((e) => {
+      console.log(e);
+    });
+  };
 
-  // useEffect(() => {
-  //     data = []
-  //     getLikedBooks().then((likedBooks) => {
-  //       likedBooks.forEach((likedBook) => {
-  //         const entry = {
-  //           title: likedBook.title,
-  //           picture: likedBook.picture,
-  //           _id: likedBook._id
-  //         }
-  //         getReviewsByBookID(likedBook._id).then((result) => {
-  //           const {_, average_score} = result
-  //           entry["rating"] = average_score ? average_score : 0
-  //         }).catch((e) => {
-  //           console.log(e);
-  //         })
-  //         data.push(entry)
-  //       })
-  //     }).catch((e) => {
-  //       console.log(e);
-  //     })
-  //   },   // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   [])
+  useEffect(() => {
+      fetchData();
+    }, // eslint-disable-next-line react-hooks/exhaustive-deps
+    []);
 
   return (
     <Container sx={styles.cardGrid}>
       <Grid container spacing={4}>
-        {data.map(({title, rating, picture, _id}, idx) => (
+        {bookshelf.map(({title, rating, picture, _id}, idx) => (
           <Grid item xs={12} sm={6} md={3} key={idx}>
             <MediaCard
               name={title}
