@@ -1,60 +1,9 @@
-import {
-  Grid,
-  Card,
-  CardMedia,
-  CardContent,
-  Typography,
-  CardActions,
-  Button,
-  Rating,
-} from "@mui/material";
-import { Container, Stack } from "@mui/system";
-import { Link } from "react-router-dom";
-
-const data = [
-  {
-    title: "some book",
-    rating: 3,
-    picture:
-      "http://books.google.com/books/content?id=FSVTDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-    _id: 1,
-  },
-  {
-    title: "some book",
-    rating: 2,
-    picture:
-      "http://books.google.com/books/content?id=FSVTDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-    _id: 1,
-  },
-  {
-    title: "some book",
-    rating: 2,
-    picture:
-      "http://books.google.com/books/content?id=FSVTDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-    _id: 1,
-  },
-  {
-    title: "some book",
-    rating: 4,
-    picture:
-      "http://books.google.com/books/content?id=FSVTDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-    _id: 1,
-  },
-  {
-    title: "some book",
-    rating: 5,
-    picture:
-      "http://books.google.com/books/content?id=FSVTDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-    _id: 1,
-  },
-  {
-    title: "some book",
-    rating: 3,
-    picture:
-      "http://books.google.com/books/content?id=FSVTDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-    _id: 1,
-  },
-];
+import {Button, Card, CardActions, CardContent, CardMedia, Grid, Rating, Typography,} from "@mui/material";
+import {Container, Stack} from "@mui/system";
+import {Link} from "react-router-dom";
+import {useUser} from "../context/UserContext";
+import {getLikedBooksByUsername} from "../api/CompositeAPI";
+import {getReviewsByBookID} from "../api/ReviewsAPI";
 
 const styles = {
   cardGrid: {
@@ -91,10 +40,10 @@ const styles = {
 };
 
 function MediaCard(props) {
-  const { name, rating, imageUrl, _id } = props;
+  const {name, rating, imageUrl, _id} = props;
   return (
     <Card sx={styles.card}>
-      <CardMedia component="img" sx={styles.cardMedia} image={imageUrl} />
+      <CardMedia component="img" sx={styles.cardMedia} image={imageUrl}/>
       <CardContent sx={styles.cardContent}>
         <Stack direction="column">
           <Typography
@@ -118,10 +67,59 @@ function MediaCard(props) {
 }
 
 export default function MyBookShelfContent() {
+  const {user} = useUser();
+  let data = []
+
+  async function getLikedBooks() {
+    return await getLikedBooksByUsername(user.username)
+  }
+
+  getLikedBooks().then((likedBooks) => {
+    likedBooks.forEach((likedBook) => {
+      const entry = {
+        title: likedBook.title,
+        picture: likedBook.picture,
+        _id: likedBook._id
+      }
+      getReviewsByBookID(likedBook._id).then((result) => {
+        const {_, average_score} = result
+        entry["rating"] = average_score ? average_score : 0
+      }).catch((e) => {
+        console.log(e);
+      })
+      data.push(entry)
+    })
+  }).catch((e) => {
+    console.log(e);
+  })
+
+  // useEffect(() => {
+  //     data = []
+  //     getLikedBooks().then((likedBooks) => {
+  //       likedBooks.forEach((likedBook) => {
+  //         const entry = {
+  //           title: likedBook.title,
+  //           picture: likedBook.picture,
+  //           _id: likedBook._id
+  //         }
+  //         getReviewsByBookID(likedBook._id).then((result) => {
+  //           const {_, average_score} = result
+  //           entry["rating"] = average_score ? average_score : 0
+  //         }).catch((e) => {
+  //           console.log(e);
+  //         })
+  //         data.push(entry)
+  //       })
+  //     }).catch((e) => {
+  //       console.log(e);
+  //     })
+  //   },   // eslint-disable-next-line react-hooks/exhaustive-deps
+  //   [])
+
   return (
     <Container sx={styles.cardGrid}>
       <Grid container spacing={4}>
-        {data.map(({ title, rating, picture, _id }, idx) => (
+        {data.map(({title, rating, picture, _id}, idx) => (
           <Grid item xs={12} sm={6} md={3} key={idx}>
             <MediaCard
               name={title}

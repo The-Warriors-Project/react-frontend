@@ -1,6 +1,6 @@
-import { Grid, Paper, Typography, Rating, Stack } from "@mui/material";
-import { Box } from "@mui/system";
-import { Link } from "react-router-dom";
+import {Grid, Paper, Rating, Stack, Typography} from "@mui/material";
+import {Box} from "@mui/system";
+import {Link} from "react-router-dom";
 
 // const reviewsData = [
 //   {
@@ -30,7 +30,6 @@ import { Link } from "react-router-dom";
 // ];
 
 
-
 const styles = {
   reviewCard: {
     height: "10rem",
@@ -43,38 +42,38 @@ const styles = {
 };
 
 const ReviewedBook = (props) => {
-  const { bookName, imageUrl, rating, reviewText, bookID } = props;
+  const {bookName, imageUrl, rating, reviewText, bookID} = props;
   const bookUrl = "/books/" + bookID;
 
   return (
     <Paper elevation={1} sx={styles.reviewCard}>
-      <Grid container spacing={4} direction="row" style={{ height: "100%" }}>
-        <Grid item xs={4} style={{ height: "100%" }}>
+      <Grid container spacing={4} direction="row" style={{height: "100%"}}>
+        <Grid item xs={4} style={{height: "100%"}}>
           <Stack
             direction="column"
             justifyContent="space-between"
             spacing={2}
-            style={{ height: "100%" }}
+            style={{height: "100%"}}
           >
-            <div style={{ height: "20%" }}>
+            <div style={{height: "20%"}}>
               <Typography
                 variant="h6"
                 noWrap
                 component={Link}
                 to={bookUrl}
-                sx={{ textDecoration: "none", color: "inherit" }}
+                sx={{textDecoration: "none", color: "inherit"}}
               >
                 {bookName}
               </Typography>
             </div>
             <img
               src={imageUrl}
-              style={{ height: "90%", width: "fit-content" }}
+              style={{height: "90%", width: "fit-content"}}
             ></img>
           </Stack>
         </Grid>
-        <Grid item xs={8} style={{ height: "100%" }}>
-          <Rating name="half-rating" value={rating} precision={0.5} readOnly />
+        <Grid item xs={8} style={{height: "100%"}}>
+          <Rating name="half-rating" value={rating} precision={0.5} readOnly/>
           <Box style={styles.reviewContent}>
             <Typography>{reviewText}</Typography>
           </Box>
@@ -85,22 +84,22 @@ const ReviewedBook = (props) => {
 };
 
 export default function MyReviewsContent(props) {
-  const { reviewsData } = props;
+  const {reviewsData} = props;
   if (!reviewsData) {
     return <></>
   }
-  console.log("this is the reviews data")
-  console.log(reviewsData)
-  console.log(reviewsData==[]? console.log(reviewsData[0]['book_id']) : console.log("Not up to date yet"))
+  // console.log("this is the reviews data")
+  // console.log(reviewsData)
+  // console.log(reviewsData==[]? console.log(reviewsData[0]['book_id']) : console.log("Not up to date yet"))
   return (
     <>
       <Grid
         container
         direction="column"
         spacing={2}
-        style={{ width: "inherit" }}
+        style={{width: "inherit"}}
       >
-        <Grid item style={{ width: "100%" }}>
+        <Grid item style={{width: "100%"}}>
           <Grid direction="column" spacing={2} container>
             {reviewsData.map(
               ({score, review_text, book_id, bookName, imageUrl}, idx) => {
