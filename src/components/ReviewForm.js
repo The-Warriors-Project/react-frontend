@@ -1,27 +1,62 @@
-import { Button, Grid, IconButton, Rating, TextField } from "@mui/material";
-import { useState } from "react";
-import { useParams } from "react-router-dom";
-import { addReview } from "../api/ReviewsAPI";
-import { useSnackbar } from "../context/SnackbarContext";
-import { getUserInfoUsername } from "../api/UsersAPI";
-import { useUser } from "../context/UserContext";
-import { Stack } from "@mui/system";
-import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import {Button, Grid, IconButton, Rating, TextField} from "@mui/material";
+import {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
+import {addReview} from "../api/ReviewsAPI";
+import {useSnackbar} from "../context/SnackbarContext";
+import {getUserInfoUsername} from "../api/UsersAPI";
+import {useUser} from "../context/UserContext";
+import {Stack} from "@mui/system";
+import {Favorite, FavoriteBorder} from "@mui/icons-material";
+import {getLikedBooksByUsername, likeBook, unlikeBook} from "../api/CompositeAPI";
 
 export default function ReviewForm(props) {
-  const { fetchData, title } = props;
+  const {fetchData, title} = props;
 
   const [rating, setRating] = useState(3);
   const [reviewText, setReviewText] = useState("");
   const [liked, setLiked] = useState(false);
-  const { openSuccessMessage, openErrorMessage } = useSnackbar();
+  const {openSuccessMessage, openErrorMessage} = useSnackbar();
+  const {id} = useParams();
+  const {user} = useUser();
 
-  const { id } = useParams();
-  const { user } = useUser();
 
-  const handleLikeClicked = () => {
-    setLiked(!liked);
-    console.log("liked", !liked);
+  // on load, check if we've already liked this book
+  async function getLikedBooks() {
+    return await getLikedBooksByUsername(user.username)
+  }
+
+  useEffect(() => {
+      getLikedBooks().then((likedBooks) => {
+        likedBooks.forEach((likedBook) => {
+          if (parseInt(id) === parseInt(likedBook._id)) {
+            setLiked(true)
+          }
+        })
+      })
+    },   // eslint-disable-next-line react-hooks/exhaustive-deps
+    [])
+
+
+  const handleLikeClicked = async () => {
+    function getSuccessCallback() {
+      return () => {
+        const msg = "You've " + (liked ? "unliked " : "liked ") + title
+        openSuccessMessage(msg)
+        setLiked(!liked)
+      };
+    }
+
+    function getErrorCallback() {
+      return (errorMsg) => {
+        openErrorMessage(errorMsg)
+      };
+    }
+
+    if (liked) {
+      await unlikeBook(user.username, id, getSuccessCallback(), getErrorCallback())
+    } else {
+      await likeBook(user.username, id, getSuccessCallback(), getErrorCallback())
+    }
   };
 
   const handleSubmit = async () => {
@@ -56,7 +91,7 @@ export default function ReviewForm(props) {
           label="Add Your Review"
           multiline
           rows={2}
-          sx={{ width: "100%", height: "100%" }}
+          sx={{width: "100%", height: "100%"}}
           value={reviewText}
           onChange={(e) => {
             setReviewText(e.target.value);
@@ -69,7 +104,7 @@ export default function ReviewForm(props) {
           justifyContent="space-between"
           alignItems="baseline"
           spacing={2}
-          sx={{ width: "100%" }}
+          sx={{width: "100%"}}
         >
           <Rating
             name="simple-controlled"
@@ -83,11 +118,11 @@ export default function ReviewForm(props) {
             color="error"
             onClick={handleLikeClicked}
           >
-            {liked ? <Favorite /> : <FavoriteBorder />}
+            {liked ? <Favorite/> : <FavoriteBorder/>}
           </IconButton>
         </Stack>
         <Button
-          sx={{ width: "100%" }}
+          sx={{width: "100%"}}
           variant="contained"
           onClick={handleSubmit}
         >
